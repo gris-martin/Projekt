@@ -6,6 +6,12 @@
 
 import urllib2
 import json
+import sys
+import time
+from datetime import datetime
+sys.path.append('/home/pi/Adafruit-Raspberry-Pi-Python-Code/Adafruit_CharLCD')
+from Adafruit_CharLCD import Adafruit_CharLCD
+lcd = Adafruit_CharLCD()
 
 api_key = '55eb715251504b278db9b8100c7100e7'
 kungshamra = 3433;
@@ -33,7 +39,25 @@ def sub_search(siteid):
     for item in resp['Buses']:
         print "%s: %s" % (item['LineNumber'], item['DisplayTime'])
 
-bus_search(kungshamra)
-print "\n"
-sub_search(bergshamra)
+def bus_read(siteid):
+    url = 'http://api.sl.se/api2/realtimedepartures.json?key=' + str(api_key) + '&siteid=' + str(siteid) + '&timewindow=30'
+    json_obj = urllib2.urlopen(url)
+    data = json.load(json_obj)
+    resp = data['ResponseData']
+    buses = resp['Buses']
+    print 'Bussavgangar'
+    lcd.noBlink()
+    lcd.home()
+    lcd.clear()
 
+
+    for index, item in enumerate(buses[:2]):
+       lcd.message("%s: %s\n" % (item['LineNumber'], item['DisplayTime']))
+
+#bus_search(kungshamra)
+#print "\n"
+#sub_search(bergshamra)
+while 1:
+    print datetime.now().time()
+    bus_read(kungshamra)
+    time.sleep(15)
