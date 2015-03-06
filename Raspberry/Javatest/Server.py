@@ -1,20 +1,41 @@
-import socket, time, os, random
+import socket
+from sys import argv
+import threading
 
 class Server():
 
-    def __init__(self,Adress=('',5000),MaxClient=3):
+    #Constructor
+    def __init__(self,port,MaxClient=3):
+        Adress = ('',port)
         self.s = socket.socket()
-        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s.bind(Adress)
         self.s.listen(MaxClient)
 
+    #Waits for new connection
     def WaitForConnection(self):
-        self.Client, self.Adr = (self.s.accept())
-        print "New connection from " + str(self.Adr)
+        i = 0;
+        while i<3:
+            self.Client, self.Adr = (self.s.accept())
+            print "New connection from " + str(self.Adr)
+            threading.Thread(target=self.HandleClient, args=(self.Client,self.Adr)).start()
+            i += 1
 
     def close(self):
         self.s.close()
 
-s = Server()
+    #Handles clients that connect
+    def HandleClient(self, c, a):
+        while True:
+            data = c.recv(1024)
+            if not data:
+                break
+            print "From connected user: " + str(data)
+            data = str(data).upper()
+            print "Sending: " + str(data)
+            c.send(data)
+        print str(a) + " disconnected."
+
+script, port = argv
+s = Server(int(port))
 s.WaitForConnection()
 s.close()
