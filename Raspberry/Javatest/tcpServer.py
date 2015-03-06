@@ -5,7 +5,7 @@ def Main():
     port = 5000
 
     s = socket.socket()
-    s.bind((host, port))
+    s.bind((host,port))
 
     s.listen(1)
     c, addr = s.accept()
