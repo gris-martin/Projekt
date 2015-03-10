@@ -14,7 +14,7 @@ public class Fotoserver extends JFrame
         
     public static void main(String args[])
     {
-	Fotoserver mainWindow = new Fotoserver("Main Window");
+	HuvudFonster mainWindow = new HuvudFonster("Main Window");
 
 	//Images
 	JLabel imageBox1 = newImage("plankan.jpg", 0.7);
@@ -36,14 +36,6 @@ public class Fotoserver extends JFrame
 	
     }
 
-
-    //Constructor
-    public Fotoserver(String title){
-	super(title);
-	this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	this.setSize(1900,1000);
-	this.setLayout(new BorderLayout());
-    }
 
     //Scale an image
     public static Image resizeImage(BufferedImage pic, double scale){
@@ -73,12 +65,3 @@ public class Fotoserver extends JFrame
 
 }
 
-
-
-
-
-class ImagePanel extends JLabel{
-    void resize(double scale){
-	
-    }
-}
