@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.io.File;
+import java.io.DataOutputStream;
+import java.io.DataInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -29,15 +31,20 @@ public class Client{
 
 	Client c = new Client(ip, port);
 
-	DataInputStream inputReader = new DataInputStream(c.socket.getInputStream());
-	int bytesRead = inputReader.read(c.bufferedImage);
-	inputReader.close();
-
+	BufferedImage img = null;
+	try{
+	    DataInputStream in = new DataInputStream(c.socket.getInputStream());
+	    DataOutputStream out = new DataOutputStream(c.socket.getOutputStream());
+	    img = ImageIO.read(c.socket.getInputStream());
+	} catch (IOException e){
+	    e.printStackTrace();
+	}
 	//Metoder for fonster
 	HuvudFonster mainWindow = new HuvudFonster("Main Window");
 
 	//Images
 	JLabel imageBox1 = newImage("plankan.jpg", 0.7);
+	JLabel imageBox2 = new JLabel(new ImageIcon(img));
 
 	//Buttons
 	JButton capButton = new JButton("Ta bild");
@@ -49,6 +56,7 @@ public class Client{
 
 	//Add images
 	mainWindow.add(imageBox1, BorderLayout.CENTER);
+	mainWindow.add(imageBox2, BorderLayout.LINE_END);
 	mainWindow.add(capButton, BorderLayout.PAGE_END);
 	//Show window
 	mainWindow.pack();
