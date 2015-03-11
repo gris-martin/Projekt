@@ -39,6 +39,9 @@ public class Client{
 	} catch (IOException e){
 	    e.printStackTrace();
 	}
+
+
+
 	//Metoder for fonster
 	HuvudFonster mainWindow = new HuvudFonster("Main Window");
 
@@ -53,14 +56,20 @@ public class Client{
 		    imageBox1.setIcon(newImageIcon("plunkan.png", 1));
 		}
 	    });
-
-	//Add images
+	//Add components
 	mainWindow.add(imageBox1, BorderLayout.CENTER);
 	mainWindow.add(imageBox2, BorderLayout.LINE_END);
 	mainWindow.add(capButton, BorderLayout.PAGE_END);
 	//Show window
 	mainWindow.pack();
 	mainWindow.setVisible(true);
+	
+	// try{
+	//     c.socket.close();
+	// } catch(IOException e){
+	//     e.printStackTrace();
+	// }
+	System.out.println("Slut!");
 	
     }
 
