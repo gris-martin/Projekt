@@ -35,10 +35,14 @@ class View extends JFrame{
 
     }
 
-    public void updateImage(BufferedImage pic){
+    public void updateImage(ImageIcon pic){
 	SwingUtilities.invokeLater(new Runnable(){
 		public void run(){
-		    imageBox.setIcon(new ImageIcon(pic));
+		    if(pic == null){
+			System.out.println("??");
+		    } else {
+			imageBox.setIcon(pic);
+		    }
 		}
 	    });
 	

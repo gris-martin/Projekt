@@ -6,10 +6,14 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.imageio.ImageIO;
+
 import java.io.IOException;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -49,11 +53,11 @@ public class Client{
     }
 
     private void run(){
-	BufferedImage pic = null;
+	ImageIcon pic = null;
 
 	do{
 	    try{
-		pic = (BufferedImage)in.readObject();
+		pic = (ImageIcon)in.readObject();
 		view.updateImage(pic);
 	    } catch(IOException e){
 		e.printStackTrace();
