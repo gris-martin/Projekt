@@ -81,7 +81,7 @@ class View extends JFrame{
 	captureButton = new JButton("Ta bild");
 	captureButton.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent ae){
-		    imageBox.setText("Väntar på bild...");
+		    imageBox.setText("...");
 		    try{
 			client.requestPicture();
 		    } catch(IOException e){

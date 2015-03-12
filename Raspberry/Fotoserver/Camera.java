@@ -23,12 +23,12 @@ public class Camera{
 	    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd-hh-mm-ss");
 	    Date date = new Date();
 	    String currentDate = dateFormat.format(date);
-
-	    executeCommand("raspistill -o pic" + currentDate +
-			   " -h 768 -w 1024 -t 3000");
+	    String picName = currentDate+".jpg";
+	    
+	    executeCommand("raspistill -o " + picName + " -h 768 -w 1024 -t 3000");
 
 	    Thread.sleep(5000);
-	    img = ImageIO.read(new File("pic"+currentDate));
+	    img = ImageIO.read(new File(picName));
 	} catch(Exception e){
 	    e.printStackTrace();
 	}
@@ -41,7 +41,8 @@ public class Camera{
     }
 
     public static void main(String[] args){
-	takePicture();
+	Camera c = new Camera();
+	c.takePicture();
     }
     
 }
