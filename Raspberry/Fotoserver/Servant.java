@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import javax.swing.ImageIcon;
+
 public class Servant extends Thread{
     Server server;
     Socket socket;
@@ -59,8 +61,8 @@ public class Servant extends Thread{
     	Integer typeOfObject = (Integer)in.readObject();
     	if(typeOfObject.equals(IMAGE)){
 	    BufferedImage bimg = camera.takePicture();
-	    byte[] byteImage = ((DataBufferByte) bimg.getData().getDataBuffer()).getData();
-	    out.writeObject(byteImage);
+	    ImageIcon imgIcon = new ImageIcon(bimg);
+	    out.writeObject(imgIcon);
 	}
 	else if(typeOfObject.equals(END)){
 	    destroyServant();

@@ -32,6 +32,11 @@ public class Camera{
 	} catch(Exception e){
 	    e.printStackTrace();
 	}
+	if(img==null){
+	    System.out.println("Kunde inte ta bild");
+	} else {
+	    System.out.println("Skickar bild...");
+	}
 	return img;
 	
     }
