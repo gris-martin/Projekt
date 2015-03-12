@@ -44,11 +44,8 @@ public class Servant extends Thread{
     public void run(){
 	System.out.println("Servant run method started");
 	BufferedImage pic = null;
-
-	
-	while(true){
-	    try{
-		performAction();
+	try{
+	    while(performAction()){
 	    } catch(Exception e){
 		e.printStackTrace();
 	    }
@@ -57,25 +54,25 @@ public class Servant extends Thread{
 	
     }
 
-    private void performAction() throws IOException, ClassNotFoundException{
+    private boolean performAction() throws IOException, ClassNotFoundException{
     	Integer typeOfObject = (Integer)in.readObject();
     	if(typeOfObject.equals(IMAGE)){
 	    BufferedImage bimg = camera.takePicture();
 	    ImageIcon imgIcon = new ImageIcon(bimg);
 	    out.writeObject(imgIcon);
+	    return true;
 	}
 	else if(typeOfObject.equals(END)){
 	    destroyServant();
+	    return false;
 	}
+	return false;
 	
     }
 
     public void destroyServant(){
 	try{
 	    server.remove(this);
-	    in.close();
-	    out.close();
-	    socket.close();
 	} catch(IOException e){
 	    e.printStackTrace();
 	}

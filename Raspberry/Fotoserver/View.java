@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -52,10 +53,11 @@ class View extends JFrame{
 	SwingUtilities.invokeLater(new Runnable(){
 		public void run(){
 
-		    setSize(1024,768);
+		    setSize(2000,2000);
 		    setLayout(new BorderLayout());
 
-		    imageBox = newImagePanel("black.png",1);
+		    imageBox = new JLabel(new ImageIcon());//newImagePanel("black.png",1);
+		    imageBox.setPreferredSize(new Dimension(1024,768));
 		    buttonPanel = new JPanel(new FlowLayout());
 		    try{
 			initiateButtons();

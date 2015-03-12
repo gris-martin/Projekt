@@ -65,13 +65,14 @@ public class Client{
 		e.printStackTrace();
 	    }
 	} while(pic != null);
+
     }
 
     public void closeConnection() throws IOException{
 	out.writeObject(END);
-	in.close();
-	out.close();
-	socket.close();
+	// in.close();
+	// out.close();
+	// socket.close();
     }
 
     public void requestPicture() throws IOException{
