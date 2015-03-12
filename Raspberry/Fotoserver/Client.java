@@ -23,33 +23,37 @@ public class Client{
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private View view;
+    private String ip;
     private static final Integer IMAGE = 1;
     private static final Integer END = 2;
 
     public static void main(String[] args){
 	try{
-	    Client c = new Client(InetAddress.getByName(args[0]), Integer.parseInt(args[1]));
-	} catch (Exception e){
+	    Client c = new Client();
+	} catch (IOException e){
 	    e.printStackTrace();
 	}
-	
+    }
+
+    public void connectToServer(String ip){
+	try{
+	    socket = new Socket(InetAddress.getByName(ip), 2020);
+	    out = new ObjectOutputStream(socket.getOutputStream());
+	    in = new ObjectInputStream(socket.getInputStream());
+	    run();
+	} catch (IOException e){
+	    e.printStackTrace();
+	}
+
     }
     
-    public Client(InetAddress address, int port) throws IOException{
-	socket = new Socket(address, port);
+    public Client() throws IOException{
 	view = new View(this);
+	BufferedReader sc = new BufferedReader();
 
 	BufferedImage pic = null;
 
-	try{
-	    out = new ObjectOutputStream(socket.getOutputStream());
-	    in = new ObjectInputStream(socket.getInputStream());
-
-	    run();
 	    
-	} catch(IOException e){
-	    e.printStackTrace();
-	}
     }
 
     private void run(){

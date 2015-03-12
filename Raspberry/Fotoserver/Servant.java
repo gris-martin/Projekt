@@ -62,6 +62,7 @@ public class Servant extends Thread{
 	    return true;
 	}
 	else if(typeOfObject.equals(END)){
+	    out.writeObject(null);
 	    destroyServant();
 	    return false;
 	}
@@ -72,5 +73,4 @@ public class Servant extends Thread{
     public void destroyServant(){
 	server.remove(this);
     }
-    
 }
