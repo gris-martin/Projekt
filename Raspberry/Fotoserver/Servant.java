@@ -5,6 +5,7 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 
 public class Servant extends Thread{
     Server server;
@@ -58,8 +59,7 @@ public class Servant extends Thread{
     	Integer typeOfObject = (Integer)in.readObject();
     	if(typeOfObject.equals(IMAGE)){
 	    BufferedImage bimg = camera.takePicture();
-	    byte[] byteImage =
-		ByteArrayConversion.toByteArray(bimg);
+	    byte[] byteImage = ((DataBufferByte) bimg.getData().getDataBuffer()).getData();
 	    out.writeObject(byteImage);
 	}
 	else if(typeOfObject.equals(END)){
