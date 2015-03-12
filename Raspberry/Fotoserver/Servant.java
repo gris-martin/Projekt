@@ -46,13 +46,12 @@ public class Servant extends Thread{
 	BufferedImage pic = null;
 	try{
 	    while(performAction()){
-	    } catch(Exception e){
+	    }
+	} catch(Exception e){
 		e.printStackTrace();
 	    }
 	    
-	} 
-	
-    }
+    } 
 
     private boolean performAction() throws IOException, ClassNotFoundException{
     	Integer typeOfObject = (Integer)in.readObject();
@@ -71,11 +70,7 @@ public class Servant extends Thread{
     }
 
     public void destroyServant(){
-	try{
-	    server.remove(this);
-	} catch(IOException e){
-	    e.printStackTrace();
-	}
+	server.remove(this);
     }
     
 }
