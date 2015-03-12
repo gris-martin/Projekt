@@ -56,6 +56,7 @@ public class Servant extends Thread{
     private void performAction() throws IOException, ClassNotFoundException{
     	Integer typeOfObject = (Integer)in.readObject();
     	if(typeOfObject.equals(IMAGE)){
+	    byte[] byteImage = ByteArrayConversion.toByteArray(camera.takePicture());
 	    out.writeObject(camera.takePicture());
 	}
 	else if(typeOfObject.equals(END)){
