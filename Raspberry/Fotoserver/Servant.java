@@ -22,7 +22,8 @@ public class Servant extends Thread{
 	socket = soc;
 	
 	System.out.println("Servant for " + 
-			   socket.getInetAddress().getHostName() + ":" +  socket.getPort());
+			   socket.getInetAddress().getHostName() +
+			   ":" +  socket.getPort());
 
 	try{
 	    in = new ObjectInputStream(socket.getInputStream());
@@ -56,8 +57,10 @@ public class Servant extends Thread{
     private void performAction() throws IOException, ClassNotFoundException{
     	Integer typeOfObject = (Integer)in.readObject();
     	if(typeOfObject.equals(IMAGE)){
-	    byte[] byteImage = ByteArrayConversion.toByteArray(camera.takePicture());
-	    out.writeObject(camera.takePicture());
+	    BufferedImage bimg = camera.takePicture();
+	    byte[] byteImage =
+		ByteArrayConversion.toByteArray(bimg);
+	    out.writeObject(byteImage);
 	}
 	else if(typeOfObject.equals(END)){
 	    destroyServant();
