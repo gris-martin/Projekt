@@ -39,5 +39,9 @@ public class Camera{
     private void executeCommand(String s) throws IOException{
 	r.exec(s);
     }
+
+    public static void main(String[] args){
+	takePicture();
+    }
     
 }
