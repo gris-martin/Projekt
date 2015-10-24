@@ -2,8 +2,8 @@ import time
 import picamera
 import os
 
-HOURS = 8
-PICS_PER_MIN = 6
+HOURS = 6
+PICS_PER_MIN = 10
 MINUTES = 60*HOURS
 FRAMES = PICS_PER_MIN*MINUTES
 
@@ -13,8 +13,7 @@ def capture_frame(frame):
         # time.sleep(2)
         cam.resolution = (1024,768)
         cam.vflip = True
-        cam.hflip = True
-        cam.capture('/home/pi/usbdrv/frame%04d.jpg' % (frame+332))
+        cam.capture('/home/pi/usbdrv/frame%04d.jpg' % frame)
 
 print("Capturing %d images." % FRAMES)
 start = time.time()
